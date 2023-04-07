@@ -86,8 +86,8 @@ app.post("/create-checkout-session", async (req, res) => {
     // ],
     line_items: line_items,
     mode: "payment",
-    success_url: "http://localhost:4242/success",
-    cancel_url: "http://localhost:4242/cancel",
+    success_url: "https://magic-forge.webflow.io/success",
+    cancel_url: "https://magic-forge.webflow.io/custom-card",
   });
 
   res.send(session.url);
