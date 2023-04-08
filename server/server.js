@@ -86,6 +86,9 @@ app.post("/create-checkout-session", async (req, res) => {
     // ],
     line_items: line_items,
     mode: "payment",
+    shipping_address_collection : {
+      'allowed_countries': ['US'],
+    },
     success_url: "https://magic-forge.webflow.io/success",
     cancel_url: "https://magic-forge.webflow.io/custom-card",
   });
