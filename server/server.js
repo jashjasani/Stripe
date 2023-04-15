@@ -4,6 +4,9 @@ require('dotenv').config();
 const express = require("express");
 const app = express();
 const stripe_key = process.env.STRIPE_KEY
+const CORS_URL = process.env.CORS_URL
+const SUCCESS_PAGE = process.env.SUCCESS_PAGE
+const CANCEL_PAGE = process.env.CANCEL_PAGE
 const stripe = require("stripe")(stripe_key);
 
 
@@ -11,7 +14,7 @@ app.use(express.json());
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
-  res.setHeader("Access-Control-Allow-Origin", "https://magic-forge.webflow.io");
+  res.setHeader("Access-Control-Allow-Origin", CORS_URL);
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, OPTIONS, PUT, PATCH, DELETE"
@@ -89,8 +92,8 @@ app.post("/create-checkout-session", async (req, res) => {
     shipping_address_collection : {
       'allowed_countries': ['US'],
     },
-    success_url: "https://magic-forge.webflow.io/success",
-    cancel_url: "https://magic-forge.webflow.io/custom-card",
+    success_url: CORS_URL + "/" + SUCCESS_PAGE,
+    cancel_url: CORS_URL + "/" + CANCEL_PAGE,
   });
 
   res.send(session.url);
